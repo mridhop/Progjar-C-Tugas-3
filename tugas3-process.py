@@ -4,7 +4,7 @@ import logging
 from multiprocessing import Process
 
 def kirim_data(nama="kosong"):
-    logging.warning(f"nama thread: {nama}")
+    logging.warning(f"proses: {nama}")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     logging.warning("membuka socket")
 
@@ -15,7 +15,7 @@ def kirim_data(nama="kosong"):
     try:
         # Send data
         message = 'TIME\r\n'
-        logging.warning(f"(thread: {nama}) [CLIENT] sending {message}")
+        logging.warning(f"(proses: {nama}) [CLIENT] sending {message}")
         sock.sendall(message.encode('utf-8'))
         # Look for the response
         respon = "JAM HH:MM:SS\r\n"
@@ -24,9 +24,9 @@ def kirim_data(nama="kosong"):
         while amount_received < amount_expected:
             data = sock.recv(32).decode('utf-8')
             amount_received += len(data)
-            logging.warning(f"(thread: {nama}) [DITERIMA DARI SERVER] {data}")
+            logging.warning(f"(proses: {nama}) [DITERIMA DARI SERVER] {data}")
     finally:
-        logging.warning(f"(thread: {nama}) closing")
+        logging.warning(f"(proses: {nama}) closing")
         sock.close()
     return
 
